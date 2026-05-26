@@ -18,9 +18,11 @@ NOTE: The databricks is found by the people who found the spark , they are know 
 ## first step 
 
 1.setup done in databrics free edition, in upload insetion file uploaded movies.csv file as table in workspace.default
+
 2.Queried table as sql
 
 ![alt text](image.png)
+
 
 ![alt text](image-1.png)
 
