@@ -25,6 +25,8 @@ NOTE: The databricks is found by the people who found the spark , they are know 
 
 ![alt text](image-1.png)
 
+# Spark Internals
+
 ### Transformations vs Actions
 
 ![alt text](image-2.png)
@@ -47,4 +49,19 @@ that is huge advantage of this spark, and also it is fault tolerant
 
 Note: Lazy Evaluation build DAG( Directed Acyclic graph ) so it builds the flow of execution of each tasks.
 
+### Narrow Transformations vd wide Transformations
+
+Examples process of narrow and wide,
+
+![alt text](image-4.png)
+
+example of wide transformation below,
+
+![alt text](image-3.png)
+
+wide transformation triggers the shuffle operation which involves disk and network costlier in terms of performance.
+
+![alt text](image-5.png)
+
+![alt text](image-6.png)
 
