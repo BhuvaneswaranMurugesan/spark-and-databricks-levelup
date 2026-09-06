@@ -45,6 +45,6 @@ display(df1.head(5))
 it know how to execute the flows, example it actually require 5 records so it start from that and it consume less memory on disk
 that is huge advantage of this spark, and also it is fault tolerant
 
-Note: Lazy loading build DAG( Directed Acyclic graph ) so it builds the flow of execution of each tasks.
+Note: Lazy Evaluation build DAG( Directed Acyclic graph ) so it builds the flow of execution of each tasks.
 
 
