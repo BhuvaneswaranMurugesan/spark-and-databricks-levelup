@@ -23,10 +23,27 @@ NOTE: The databricks is found by the people who found the spark , they are know 
 
 ![alt text](image.png)
 
-
 ![alt text](image-1.png)
 
+### Transformations vs Actions
 
+![alt text](image-2.png)
+
+### Lazy Execution
+
+it is part of special part of spark, that know how to execute the transformations/tasks effieciently
+
+consider we have 3 operations on filters and selects required coolumns and at the end selects top 5 records
+
+```spark
+df = spark.table("movies")
+df1 = df.filter(F.col("order_id")>1000)
+df1 = df1.select("order_id")
+display(df1.head(5))
+```
+
+it know how to execute the flows, example it actually require 5 records so it start from that and it consume less memory on disk
+that is huge advantage of this spark, and also it is fault tolerant
 
 
 
