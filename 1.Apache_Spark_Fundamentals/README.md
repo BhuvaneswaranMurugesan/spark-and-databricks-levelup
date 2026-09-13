@@ -119,3 +119,53 @@ predicate pushdown and Column Pruning are rule based optimization
 
 Note: there are other features of catalyst Optimixer, example Rule-based optimization, cost based optimization and code generation
 
+for costbased- optimization there is an example like Brodcast joins or shuffle joins act based on logics.
+
+## Join Stratergies
+
+- Broadcast Hash join
+- Shuffle Hash join
+- Sort-Merge join
+
+### Broadcast Hash join:
+
+the single small table is brodcasted to multiple nodes, so that shuffiling the data will minimized and be faster in processing the joins
+
+![alt text](image-11.png)
+
+### Shuffle Hash join
+
+the shuffle hash, will map the respecting repartions, eg: related customer id in diffrent nodes, customer_id = 1 then each node contains same id with two tables, by this it will optimzed will not wait or shuffle from diffrent node
+
+![alt text](image-12.png)
+
+# Data Skew
+
+When data has uneven distribution or partition, so work is evenly distibuted so work is'nt balanced among clusters.
+
+## straggler task:
+
+it means consider we have an example:
+
+df_grouped = customer_df.group_by("region_id")
+print(df_grouped.count())
+
+so above will do group by region and taking its count, what if first region contains 10 records and region 2 and 3 contains 1 records, so it is processed by NodeA, NodeB and NodeC.
+
+finally Node A have more work, in terms of distribution system it is know as Straggler Task.
+
+## Skew mitigation Problem
+
+- Salting
+- Broadcast
+- Preaggregation
+
+# Adaptive Query Execution (AQE)
+
+diffrence b/q Catalyst and AQE id Catalyst is static Optimization and AQE is runtime Optimization.
+
+- AQE hanles the Data Skew and distributes the data evenly in partitions and complete the job done in runtime
+
+- it handles mutiple small partitions and implement coalese and complete the job.
+
+- automatic join selection.
