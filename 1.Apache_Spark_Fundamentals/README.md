@@ -65,3 +65,57 @@ wide transformation triggers the shuffle operation which involves disk and netwo
 
 ![alt text](image-6.png)
 
+### Partitions and Parallelism
+
+repartition
+
+```spark
+from pyspark.sql import functions as F
+df = spark.table("workspace.default.movies")
+
+re_by_key = df.repartition(6,"studio")
+re_by_key.explain("formatted")
+```
+
+![alt text](image-7.png)
+
+coalesce()
+
+```spark
+df.coalesce(6)
+```
+
+means reduces the partition, only reduces never increases
+this helps to avoid full shuffles (minimize the data movements) and eliminates too many partitions
+
+### Catalyst Optimizer,Predicate Pushdown and Column Pruning
+
+Catalyst Optimizer built in query optimizer, spark's rule based engine that automatically re-writes queires for better performance without altering result.
+
+![alt text](image-8.png)
+
+```spark
+from pyspark.sql import functions as F
+
+df = spark.table("workspace.default.movies")
+
+q1 = df.select("title","industry","studio").filter(F.col("release_year")>2020)
+q1.explain("formatted")
+```
+
+predicate pushdown:
+
+in planning it pushes the filter as close to source , so that will not read the unnecessary data
+
+![alt text](image-9.png)
+
+Column Pruning:
+
+it choose the required columns for output and used for operations such as filters
+
+![alt text](image-10.png)
+
+predicate pushdown and Column Pruning are rule based optimization
+
+Note: there are other features of catalyst Optimixer, example Rule-based optimization, cost based optimization and code generation
+
